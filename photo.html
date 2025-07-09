@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Festival & Day Celebration Photos</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <style>
+    body {
+      background-color: #e6eef5;
+      font-family: 'Segoe UI', sans-serif;
+      color: #003865;
+    }
+    .navbar {
+      background-color: #ffffff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .navbar-brand img {
+      height: 40px;
+      border-radius: 10px;
+      margin-right: 10px;
+    }
+    .section-title {
+      text-align: center;
+      margin: 60px 0 30px;
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #003865;
+    }
+    .photo-category {
+      margin-bottom: 60px;
+    }
+    .photo-category h3 {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 25px;
+      color: #003865;
+    }
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 0 20px;
+    }
+    .photo-grid img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease-in-out;
+    }
+    .photo-grid img:hover {
+      transform: scale(1.05);
+    }
+    footer {
+      background-color: #003865;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+    }
+    footer a {
+      color: #ffc107;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="https://www.srkinstitute.in/images/SRKLOGOWEB.jpg" alt="SRK Logo">
+        SRK FEST
+      </a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="photos.html">Photos</a></li>
+          <li class="nav-item"><a class="nav-link" href="videos.html">Videos</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://www.srkinstitute.in/" target="_blank">Main Website</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <h2 class="section-title" data-aos="fade-down">Festival & Day Celebration Photos</h2>
+
+  <div class="container">
+    <div class="photo-category" data-aos="fade-up">
+      <h3>Independence Day</h3>
+      <div class="photo-grid">
+        <img src="images/independence1.jpg" alt="Independence Day 1">
+        <img src="images/independence2.jpg" alt="Independence Day 2">
+        <img src="images/independence3.jpg" alt="Independence Day 3">
+      </div>
+    </div>
+
+    <div class="photo-category" data-aos="fade-up">
+      <h3>Republic Day</h3>
+      <div class="photo-grid">
+        <img src="images/republic1.jpg" alt="Republic Day 1">
+        <img src="images/republic2.jpg" alt="Republic Day 2">
+        <img src="images/republic3.jpg" alt="Republic Day 3">
+      </div>
+    </div>
+
+    <div class="photo-category" data-aos="fade-up">
+      <h3>Traditional Day</h3>
+      <div class="photo-grid">
+        <img src="images/traditional1.jpg" alt="Traditional Day 1">
+        <img src="images/traditional2.jpg" alt="Traditional Day 2">
+        <img src="images/traditional3.jpg" alt="Traditional Day 3">
+      </div>
+    </div>
+
+    <div class="photo-category" data-aos="fade-up">
+      <h3>Navratri Celebration</h3>
+      <div class="photo-grid">
+        <img src="images/navratri1.jpg" alt="Navratri 1">
+        <img src="images/navratri2.jpg" alt="Navratri 2">
+        <img src="images/navratri3.jpg" alt="Navratri 3">
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 SRK Institute of Management & Computer Application, Sapeda</p>
+      <p>Contact: info@srkinstitute.in | <a href="https://www.srkinstitute.in/" target="_blank">Main Website</a></p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000 });
+  </script>
+</body>
+</html>
