@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +8,75 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f8f9fa;
       color: #333;
+    }
+
+    /* Loader */
+    #loader {
+      position: fixed;
+      z-index: 9999;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: white;
+    }
+
+    .spinner {
+      border: 8px solid rgba(255, 255, 255, 0.2);
+      border-top: 8px solid #00d2ff;
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    .loader-text {
+      font-size: 1.5rem;
+      animation: fadeIn 1.5s ease-in-out infinite alternate;
+      text-align: center;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0.4;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    body.loaded #loader {
+      display: none;
+    }
+
+    body:not(.loaded) main,
+    body:not(.loaded) footer {
+      display: none;
     }
 
     .college-header {
@@ -27,36 +91,33 @@
       font-size: 1.8rem;
       margin-bottom: 0.5rem;
       font-weight: 700;
-      line-height: 1.3;
     }
 
     .location {
       font-size: 1rem;
-      margin-bottom: 0.8rem;
       font-style: italic;
+      margin-bottom: 0.5rem;
     }
 
     .college-subtitle {
       font-size: 1.2rem;
       font-weight: 300;
-      letter-spacing: 0.5px;
     }
 
     .qr-counter {
-  text-align: center;
-  margin: 2rem auto;
-  padding: 2rem;
-  max-width: 500px;
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-  transition: transform 0.3s;
-}
+      text-align: center;
+      margin: 2rem auto;
+      padding: 2rem;
+      max-width: 500px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
 
-.qr-counter:hover {
-  transform: translateY(-5px);
-}
-
+    .qr-counter:hover {
+      transform: translateY(-5px);
+    }
 
     #counter {
       font-size: 3rem;
@@ -85,48 +146,70 @@
       margin: 0 auto;
     }
 
-    h2 {
-      color: #1e3c72;
-      border-bottom: 2px solid #1e3c72;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1.5rem;
-      font-size: 1.5rem;
-    }
-
     .options-section {
       display: flex;
       justify-content: center;
       gap: 1.5rem;
-      margin: 2rem auto;
       flex-wrap: wrap;
     }
 
-    .btn-option {
-      display: inline-block;
-      padding: 0.8rem 1.5rem;
-      background-color: #1e3c72;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: 600;
-      transition: all 0.3s ease;
+    .media-options-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .media-option {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      width: 100%;
+      max-width: 350px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
       text-align: center;
-      min-width: 160px;
+      margin-bottom: 15px;
+    }
+
+    .media-option:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+    }
+
+    .media-icon {
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+    }
+
+    .media-option h3 {
+      color: #1e3c72;
+      margin-bottom: 12px;
+    }
+
+    .media-option p {
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .media-btn {
+      background: #1e3c72;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       font-size: 0.9rem;
     }
 
-    .btn-option:hover {
-      background-color: #2a5298;
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    .media-btn:hover {
+      background: #2a5298;
     }
 
-    .hero-image {
-      height: 250px;
-      background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1');
-      background-size: cover;
-      background-position: center;
-      margin: 1.5rem 0;
+    .arrow {
+      margin-left: 6px;
     }
 
     footer {
@@ -134,7 +217,6 @@
       color: white;
       text-align: center;
       padding: 1.5rem 1rem;
-      margin-top: 2rem;
       font-size: 0.9rem;
     }
 
@@ -147,106 +229,9 @@
       text-decoration: underline;
     }
 
-    .media-options-container {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    .media-option {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      width: 100%;
-      max-width: 350px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-      transition: transform 0.3s, box-shadow 0.3s;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 15px;
-    }
-
-    .media-option:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 12px 25px rgba(0,0,0,0.12);
-    }
-
-    .media-icon {
-      font-size: 2.8rem;
-      margin-bottom: 15px;
-      transition: transform 0.3s;
-    }
-
-    .media-option:hover .media-icon {
-      transform: scale(1.05);
-    }
-
-    .media-option h3 {
-      color: #1e3c72;
-      margin-bottom: 12px;
-      font-size: 1.3rem;
-    }
-
-    .media-option p {
-      color: #666;
-      margin-bottom: 20px;
-      line-height: 1.4;
-      font-size: 0.95rem;
-    }
-
-    .media-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: #1e3c72;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s;
-      width: 90%;
-      margin: 0 auto;
-      font-size: 0.9rem;
-    }
-
-    .media-btn:hover {
-      background: #2a5298;
-      transform: translateX(3px);
-    }
-
-    .arrow {
-      margin-left: 6px;
-      transition: transform 0.3s;
-    }
-
-    .media-btn:hover .arrow {
-      transform: translateX(2px);
-    }
-
-    .photo-option {
-      border-top: 4px solid #FF6B6B;
-    }
-
-    .video-option {
-      border-top: 4px solid #4ECDC4;
-    }
-
     @media (max-width: 576px) {
-      .college-header {
-        padding: 1.5rem 1rem;
-      }
-
       .college-header h1 {
         font-size: 1.5rem;
-      }
-
-      .location {
-        font-size: 0.9rem;
       }
 
       .college-subtitle {
@@ -255,89 +240,98 @@
 
       .media-option {
         padding: 15px;
-        border-radius: 10px;
-      }
-
-      .media-icon {
-        font-size: 2.5rem;
-      }
-
-      .media-option h3 {
-        font-size: 1.2rem;
-      }
-
-      .media-option p {
-        font-size: 0.9rem;
-        margin-bottom: 15px;
-      }
-
-      .media-btn {
-        padding: 8px 15px;
-        font-size: 0.85rem;
-      }
-
-      footer {
-        padding: 1rem;
-        font-size: 0.8rem;
       }
     }
+    .college-subtitle2 {
+  color: rgb(248, 248, 248);
+  text-shadow: 
+    0 0 5px #fff,
+    0 0 10px #fff,
+    0 0 15px #fff,
+    0 0 20px rgba(255, 255, 255, 0.5);
+  font-size: 16px; /* Adjust as needed */
+  font-weight: normal;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 
+      0 0 5px #fff,
+      0 0 10px #fff,
+      0 0 15px #fff,
+      0 0 20px rgba(220, 220, 220, 0.5);
+  }
+  to {
+    text-shadow: 
+      0 0 10px #fff,
+      0 0 20px #fff,
+      0 0 30px #fff,
+      0 0 40px rgba(220, 220, 220, 0.8);
+  }
+}
   </style>
 </head>
+
 <body>
-  <div class="college-header" data-aos="fade-down">
-    <h1>SRK INSTITUTE OF MANAGEMENT & COMPUTER APPLICATIONS</h1>
-    <div class="location">Sapeda</div>
-    <div class="college-subtitle">College Fest Celebration</div>
+  <!-- Loader -->
+  <div id="loader">
+    <div class="spinner"></div>
+    <div class="loader-text">🎉 Welcome to SRK College Fest</div>
   </div>
 
-  <!-- QR Scan Counter Section -->
+  <!-- MAIN CONTENT -->
+  <main>
+    <div class="college-header" data-aos="fade-down">
+      <h1>SRK INSTITUTE OF MANAGEMENT & COMPUTER APPLICATIONS</h1>
+      <div class="location">Sapeda</div>
+      <div class="college-subtitle">College Fest Celebration</div>
+      <br>
+      <div class="college-subtitle2">(CREATED BY : DEEP SATHAVARA & MEET PRAJAPATI)</div>
+    </div>
+
+
+    <!-- QR Counter -->
     <div class="qr-counter" data-aos="zoom-in">
-      <h2>🚀 visit count!</h2>
-      <p>Total Scans :</p>
+      <h2>🚀 Visit Count!</h2>
+      <p>Total Scans:</p>
       <div id="counter">Loading...</div>
       <button onclick="resetCount()">🔄 Reset Count</button>
     </div>
 
-  <section class="options-section" data-aos="zoom-in">
-    <div class="media-options-container">
-      <div class="media-option photo-option">
-        <div class="media-icon">📸</div>
-        <h3>Photo Gallery</h3>
-        <p>Relive the vibrant moments of our fest through stunning photographs</p>
-        <a href="photo.html" class="media-btn">
-          click here
-          <span class="arrow">→</span>
-        </a>
+    <!-- Media Sections -->
+    <section class="options-section" data-aos="zoom-in">
+      <div class="media-options-container">
+        <div class="media-option photo-option">
+          <div class="media-icon">📸</div>
+          <h3>Photo Gallery</h3>
+          <p>Relive the vibrant moments of our fest through stunning photographs</p>
+          <a href="photo.html" class="media-btn">click here <span class="arrow">→</span></a>
+        </div>
+        <div class="media-option video-option">
+          <div class="media-icon">🎥</div>
+          <h3>Video Collection</h3>
+          <p>Watch the highlights, performances and special moments from the fest</p>
+          <a href="videos.html" class="media-btn">click here <span class="arrow">→</span></a>
+        </div>
       </div>
-      <div class="media-option video-option">
-        <div class="media-icon">🎥</div>
-        <h3>Video Collection</h3>
-        <p>Watch the highlights, performances and special moments from the fest</p>
-        <a href="videos.html" class="media-btn">
-          click here
-          <span class="arrow">→</span>
-        </a>
-      </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
+  <!-- Footer -->
   <footer>
-    <div class="container">
-      <p>&copy; 2025 SRK Institute of Management & Computer Application, Sapeda</p>
-      <p>Contact: info@srkinstitute.in | <a href="https://www.srkinstitute.in/" target="_blank">Main Website</a></p>
-    </div>
+    <p>&copy; 2025 SRK Institute of Management & Computer Application, Sapeda</p>
+    <p>Contact: info@srkinstitute.in | <a href="https://www.srkinstitute.in/" target="_blank">Main Website</a></p>
   </footer>
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    AOS.init({
-      duration: 1000,
-      once: true
-    });
+    // Init AOS
+    AOS.init({ duration: 1000, once: true });
 
-    // QR Counter Script
+    // QR Counter
     let count = localStorage.getItem("scanCount");
     count = count ? parseInt(count) : 0;
     count += 1;
@@ -348,6 +342,14 @@
       localStorage.setItem("scanCount", 0);
       document.getElementById("counter").innerText = 0;
     }
+
+    // Loader Timeout
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.body.classList.add("loaded");
+      }, 500);
+    });
   </script>
 </body>
+
 </html>
