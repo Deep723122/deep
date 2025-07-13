@@ -8,36 +8,11 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
   <style>
     body {
-      background-color: #e6eef5;
+      background-color: #f8f9fa;
       font-family: 'Segoe UI', sans-serif;
-      color: #003865;
+      color: #333;
       margin: 0;
       padding: 0;
-    }
-
-    .creator-credit {
-      background-color: #003865;
-      color: #ffffff;
-      text-align: center;
-      padding: 12px 20px;
-      font-size: 1rem;
-      font-weight: 500;
-      animation: fadeInSlide 1.5s ease-out forwards;
-      opacity: 0;
-      transform: translateY(-10px);
-      letter-spacing: 0.5px;
-    }
-
-    .creator-credit span {
-      color: #00ffc8;
-      font-weight: bold;
-    }
-
-    @keyframes fadeInSlide {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
     }
 
     .navbar {
@@ -53,6 +28,7 @@
 
     .section-title {
       text-align: center;
+      padding: 5px;
       margin: 40px 15px 20px;
       font-size: 1.8rem;
       font-weight: bold;
@@ -85,7 +61,7 @@
       display: none;
     }
 
-    .video-box {
+    .instagram-embed {
       flex: 0 0 auto;
       width: 350px;
       min-width: 350px;
@@ -95,28 +71,20 @@
       overflow: hidden;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       background: white;
-      transition: transform 0.3s ease;
-      display: flex;
-      flex-direction: column;
+      transition: all 0.3s ease;
     }
 
-    .video-box:hover {
-      transform: scale(1.03);
+    .instagram-embed:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
       z-index: 10;
-    }
-
-    .video-box video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      outline: none;
     }
 
     .slider-button {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(0, 56, 101, 0.8);
+      background: rgba(0, 56, 101, 0.5);
       color: #fff;
       border: none;
       width: 45px;
@@ -135,33 +103,25 @@
       background: #003865;
     }
 
-    .slider-button.prev {
-      left: 5px;
+    .slider-button.prev { left: 5px; }
+    .slider-button.next { right: 5px; }
+
+    .creator-credit {
+      background-color: #003865;
+      color: #ffffff;
+      text-align: center;
+      padding: 12px 20px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      animation: fadeInSlide 1.5s ease-out forwards;
+      opacity: 0;
+      transform: translateY(-10px);
+      letter-spacing: 0.5px;
     }
 
-    .slider-button.next {
-      right: 5px;
-    }
-
-    @media (max-width: 768px) {
-      .video-box {
-        width: 300px;
-        min-width: 300px;
-        height: 550px;
-      }
-      
-      .slider-container {
-        padding: 0px;
-        margin: 0px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .video-box {
-        width: 280px;
-        min-width: 280px;
-        height: 520px;
-      }
+    .creator-credit span {
+      color: #00ffc8;
+      font-weight: bold;
     }
 
     footer {
@@ -175,114 +135,241 @@
       color: #ffc107;
       text-decoration: underline;
     }
+
+    @media (max-width: 768px) {
+      .instagram-embed {
+        width: 300px;
+        min-width: 300px;
+        height: 550px;
+      }
+
+      .slider-container { padding: 0; margin: 0; }
+    }
+
+    @media (max-width: 480px) {
+      .instagram-embed {
+        width: 280px;
+        min-width: 280px;
+        height: 520px;
+      }
+    }
+    
+    /* New styles for reel covers */
+    .reel-cover {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      cursor: pointer;
+    }
+    
+    .reel-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .reel-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .play-button {
+      width: 60px;
+      height: 60px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .play-button:after {
+      content: "";
+      display: block;
+      width: 0;
+      height: 0;
+      border-top: 15px solid transparent;
+      border-bottom: 15px solid transparent;
+      border-left: 25px solid #003865;
+      margin-left: 5px;
+    }
+    
+    .reel-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 15px;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+      color: white;
+    }
+    
+    .reel-info h4 {
+      margin: 0;
+      font-size: 16px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .reel-info p {
+      margin: 5px 0 0;
+      font-size: 12px;
+      opacity: 0.8;
+    }
+    
+    @keyframes fadeInSlide {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   </style>
 </head>
 <body>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="https://www.srkinstitute.in/images/SRKLOGOWEB.jpg" alt="SRK Logo">
+        SRK FEST
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-  <!-- ✅ Creator Credit Header -->
   <div class="creator-credit" data-aos="fade-down">
     ✨ Created by <span>Deep Sathwara</span> & <span>Meet Prajapati</span>
   </div>
 
   <h2 class="section-title" data-aos="fade-down">Festival & Day Celebration Videos</h2>
-
+  
+  <!-- Row 1 -->
   <div class="container-fluid">
-    <!-- Row 1 -->
     <div class="video-category">
       <div class="slider-container">
         <button class="slider-button prev" onclick="slide(this, -1)">&#10094;</button>
         <div class="video-slider">
-          <div class="video-box" data-aos="zoom-in">
-            <video controls autoplay muted>
-              <source src="videos/ab1.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
+          <div class="instagram-embed" data-aos="zoom-in" data-url="https://www.instagram.com/reel/DJQvyffiLw-/">           
+            <div class="reel-cover" onclick="redirectToInstagram(this.parentElement.getAttribute('data-url'))">
+              <img class="reel-image" src="https://dl.fastvideosave.net/?url=https%3A%2F%2Fscontent-lax3-2.cdninstagram.com%2Fv%2Ft51.71878-15%2F495489019_1396365765009080_407954804768985515_n.jpg%3Fstp%3Ddst-jpg_e15_tt6%26_nc_cat%3D100%26ig_cache_key%3DMzYyNTYwNzg3ODAwODE1OTI5NA%253D%253D.3-ccb1-7%26ccb%3D1-7%26_nc_sid%3D58cdad%26efg%3DeyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjY0MHgxMTM2LnNkciJ9%26_nc_ohc%3D-vB0RZko_4IQ7kNvwEuTgyk%26_nc_oc%3DAdn3i8bdv-6EH5KwDz0AVL_eV9frYN3QZAgnXH2xPKd8gc-H8NXvHx-w1MMFtnvZUQQ%26_nc_ad%3Dz-m%26_nc_cid%3D0%26_nc_zt%3D23%26_nc_ht%3Dscontent-lax3-2.cdninstagram.com%26_nc_gid%3DE6n7nHHwAh9z35heXuNRKw%26oh%3D00_AfTPWSgXJ99bY4Bs4dXp6-MkWRuPlmz-4-K_Z4mLil9PXw%26oe%3D68797176" alt="Reel Cover">
+              <div class="reel-overlay">
+                <div class="play-button"></div>
+              </div>
+              <div class="reel-info">
+                <h4>CAMPUS TOUR</h4>
+                <p>SRK INSTITUTE</p>
+              </div>
+            </div>
           </div>
-          <div class="video-box" data-aos="zoom-in">
-            <video controls>
-              <source src="videos/vd1.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
+          <div class="instagram-embed" data-aos="zoom-in" data-url="https://www.instagram.com/reel/DKyVulqodAQ/">
+            <div class="reel-cover" onclick="redirectToInstagram(this.parentElement.getAttribute('data-url'))">
+              <img class="reel-image" src="https://dl.fastvideosave.net/?url=https%3A%2F%2Fscontent-mad1-1.cdninstagram.com%2Fv%2Ft51.71878-15%2F506035851_3869553363267064_5803048282304090831_n.jpg%3Fstp%3Ddst-jpg_e15_tt6%26_nc_cat%3D105%26ig_cache_key%3DMzY1MzA3NzgwODI2NzI1MTcyOA%253D%253D.3-ccb1-7%26ccb%3D1-7%26_nc_sid%3D58cdad%26efg%3DeyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjY0MHgxMTM2LnNkciJ9%26_nc_ohc%3DvkkcgeVOE70Q7kNvwFLYM9I%26_nc_oc%3DAdlu6JgYPEnR9cH0ECvS3lygH9U7FFgS3TMCi3PVUIEHNZ5gYIKBNqbkzWlQfedCgxg%26_nc_ad%3Dz-m%26_nc_cid%3D0%26_nc_zt%3D23%26_nc_ht%3Dscontent-mad1-1.cdninstagram.com%26_nc_gid%3DOzdc-yPeIXCt38TafKqoyg%26oh%3D00_AfQ92DpjDUHHeObVwdEQ7bB8qO7gVMQvL0fTyYh0UT75QQ%26oe%3D6879643E" alt="Reel Cover">
+              <div class="reel-overlay">
+                <div class="play-button"></div>
+              </div>
+              <div class="reel-info">
+                <h4>COLLEGE INFO VLOG</h4>
+                <p>SRK INSTITUTE</p>
+              </div>
+            </div>
           </div>
-          <div class="video-box" data-aos="zoom-in">
-            <video controls>
-              <source src="videos/ab3.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
+          <div class="instagram-embed" data-aos="zoom-in" data-url="https://www.instagram.com/reel/DJQvaM-ixck/">
+            <div class="reel-cover" onclick="redirectToInstagram(this.parentElement.getAttribute('data-url'))">
+              <img class="reel-image" src="https://dl.fastvideosave.net/?url=https%3A%2F%2Fscontent-muc2-1.cdninstagram.com%2Fv%2Ft51.2885-15%2F495374390_4101033743513738_3275547286791128648_n.jpg%3Fstp%3Ddst-jpg_e15_tt6%26_nc_ht%3Dscontent-muc2-1.cdninstagram.com%26_nc_cat%3D102%26_nc_oc%3DQ6cZ2QFxVHjEQlTGHyAiTCYggLP0Vn2eaL7R68a8WsH8HuD-sY5SRdEUEz6SuYFWXv4kFNg%26_nc_ohc%3DpegL_ftf-X8Q7kNvwEFnZ05%26_nc_gid%3D5i2oqL1me6XK2zIO0Ld_zQ%26edm%3DAPs17CUBAAAA%26ccb%3D7-5%26oh%3D00_AfRnsbtJQPpMT20ed-clpxWFh0ubtLMNFBGFMM3Jpzlsjw%26oe%3D68796936%26_nc_sid%3D10d13b" alt="Reel Cover">
+              <div class="reel-overlay">
+                <div class="play-button"></div>
+              </div>
+              <div class="reel-info">
+                <h4>CAMPUS WALK</h4>
+                <p>SRK INSTITUTE</p>
+              </div>
+            </div>
           </div>
-           <div class="video-box" data-aos="zoom-in">
-            <video controls>
-              <source src="videos/ab5.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-          </div>
-          <div class="video-box" data-aos="zoom-in">
-            <video controls>
-               <source src="videos/ab2.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
+          <div class="instagram-embed" data-aos="zoom-in" data-url="https://www.instagram.com/reel/DJ2DyzGNr4O/">
+            <div class="reel-cover" onclick="redirectToInstagram(this.parentElement.getAttribute('data-url'))">
+              <img class="reel-image" src="https://dl.fastvideosave.net/?url=https%3A%2F%2Fscontent-muc2-1.cdninstagram.com%2Fv%2Ft51.2885-15%2F498544597_1209224303603502_8913197932627709018_n.jpg%3Fstp%3Ddst-jpg_e15_tt6%26_nc_ht%3Dscontent-muc2-1.cdninstagram.com%26_nc_cat%3D106%26_nc_oc%3DQ6cZ2QFAWBxLj-prdQbafh3_fI1myiBpBuKSWPuQMYchA3xvvTMqewfCCLuweqT9DZciMyM%26_nc_ohc%3DM_mK8dWYXjkQ7kNvwEULW7e%26_nc_gid%3DyUOmly-3B5WAW4kaQGdccQ%26edm%3DAPs17CUBAAAA%26ccb%3D7-5%26oh%3D00_AfRy8cW8uneOphomAMw72IIZhr89TSLvKMMlo0mTJWLkSw%26oe%3D687972BD%26_nc_sid%3D10d13b" alt="Reel Cover">
+              <div class="reel-overlay">
+                <div class="play-button"></div>
+              </div>
+              <div class="reel-info">
+                <h4>COLLEGE INFO</h4>
+                <p>SRK INSTITUTE</p>
+              </div>
+            </div>
           </div>
         </div>
         <button class="slider-button next" onclick="slide(this, 1)">&#10095;</button>
       </div>
     </div>
+  </div>
 
-    <!-- Row 2 -->
+  <!-- Row 2 -->
+  <div class="container-fluid">
     <div class="video-category">
       <div class="slider-container">
         <button class="slider-button prev" onclick="slide(this, -1)">&#10094;</button>
         <div class="video-slider">
-          <div class="video-box" data-aos="zoom-in">
-            <video controls>
-              <source src="videos/0201(4).mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
+          <div class="instagram-embed" data-aos="zoom-in" data-url="https://www.instagram.com/reel/C-FicSutcE3/">
+            <div class="reel-cover" onclick="redirectToInstagram(this.parentElement.getAttribute('data-url'))">
+              <img class="reel-image" src="https://dl.fastvideosave.net/?url=https%3A%2F%2Fscontent-lga3-2.cdninstagram.com%2Fv%2Ft51.71878-15%2F503270042_1116094917229667_5450650039854347610_n.jpg%3Fstp%3Ddst-jpg_e15_tt6%26_nc_cat%3D107%26ig_cache_key%3DMzQyNDI5NDU2OTUyMjg3MjYzMQ%253D%253D.3-ccb1-7%26ccb%3D1-7%26_nc_sid%3D58cdad%26efg%3DeyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEwODB4MTkyMC5zZHIifQ%253D%253D%26_nc_ohc%3D3wL5Djlr8FQQ7kNvwHXGKFs%26_nc_oc%3DAdknzPqwVXaERW5YQWDvohdTH4Feufz5GCVNsPMNf-UXQb89av4OermRraAjADd3OeM%26_nc_ad%3Dz-m%26_nc_cid%3D0%26_nc_zt%3D23%26_nc_ht%3Dscontent-lga3-2.cdninstagram.com%26_nc_gid%3Dyic9GrBqHXSuq7NBR_Ix6w%26oh%3D00_AfQwj10cUxLrmQbrs0hUN-bYKREQEELiyZPN7EgVR6_nSw%26oe%3D6879561C" alt="Reel Cover">
+              <div class="reel-overlay">
+                <div class="play-button"></div>
+              </div>
+              <div class="reel-info">
+                <h4>DIKSHARAMBH 2K24</h4>
+                <p>SRK INSTITUTE</p>
+              </div>
+            </div>
           </div>
-          <div class="video-box" data-aos="zoom-in">
-            <video controls>
-              <source src="videos/0909 (1).mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
+          <div class="instagram-embed" data-aos="zoom-in" data-url="https://www.instagram.com/reel/DGSzD6st4pW/">
+            <div class="reel-cover" onclick="redirectToInstagram(this.parentElement.getAttribute('data-url'))">
+              <img class="reel-image" src="https://dl.fastvideosave.net/?url=https%3A%2F%2Fscontent-lga3-3.cdninstagram.com%2Fv%2Ft51.71878-15%2F480259951_1133054004976373_1602957821630256784_n.jpg%3Fstp%3Ddst-jpg_e15_tt6%26_nc_cat%3D104%26ig_cache_key%3DMzU3MjE0MjAyNDAxNTk3Mjk1MA%253D%253D.3-ccb1-7%26ccb%3D1-7%26_nc_sid%3D58cdad%26efg%3DeyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjY0MHgxMTM2LnNkciJ9%26_nc_ohc%3DtUfeQ93ry30Q7kNvwG8sfNn%26_nc_oc%3DAdlw0zRitgl2agTeZwhokkO39H7zcQdEM8Mnxg2fXnwpvhJyyczN4WFcW2RnrVi8-fY%26_nc_ad%3Dz-m%26_nc_cid%3D0%26_nc_zt%3D23%26_nc_ht%3Dscontent-lga3-3.cdninstagram.com%26_nc_gid%3DAzMk0fAmWO8o8tqW8N9Qaw%26oh%3D00_AfQ2b3NOzdf_jfOPnEMoa2OQZVQuS8WPEMusRdyv-5lxFA%26oe%3D687964E3" alt="Reel Cover">
+              <div class="reel-overlay">
+                <div class="play-button"></div>
+              </div>
+              <div class="reel-info">
+                <h4>U-WAAH 2K25</h4>
+                <p>SRK INSTITUTE</p>
+              </div>
+            </div>
           </div>
-          <div class="video-box" data-aos="zoom-in">
-            <video controls>
-              <source src="videos/ab4.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
+          <div class="instagram-embed" data-aos="zoom-in" data-url="https://www.instagram.com/reel/DK1EmlAo5G6/">
+            <div class="reel-cover" onclick="redirectToInstagram(this.parentElement.getAttribute('data-url'))">
+              <img class="reel-image" src="https://dl.fastvideosave.net/?url=https%3A%2F%2Fscontent-atl3-3.cdninstagram.com%2Fv%2Ft51.75761-15%2F503891450_18049171037574684_3644260360451760534_n.jpg%3Fstp%3Ddst-jpg_e15_tt6%26_nc_cat%3D109%26ig_cache_key%3DMzY1Mzg0NjkxNTk0NjM1MzA4Mg%253D%253D.3-ccb1-7%26ccb%3D1-7%26_nc_sid%3D58cdad%26efg%3DeyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjU0MHg5NjAuc2RyIn0%253D%26_nc_ohc%3DTjooM1H0d3kQ7kNvwFYquGQ%26_nc_oc%3DAdmtajOy_b8-RO40FqVxJino-JQOW4CuE69Y1rZCM76-Elb77h18BgTnl_9IiNBRGbE%26_nc_ad%3Dz-m%26_nc_cid%3D0%26_nc_zt%3D23%26_nc_ht%3Dscontent-atl3-3.cdninstagram.com%26_nc_gid%3DYUTcHe1XSdlgH8_TSJtWiw%26oh%3D00_AfRAdwGM7qV8TG88SCXEPdjkskv72fkLePGlCOgmLPG1_g%26oe%3D68796EDC" alt="Reel Cover">
+              <div class="reel-overlay">
+                <div class="play-button"></div>
+              </div>
+              <div class="reel-info">
+                <h4>COLLEGE TRIP</h4>
+                <p>SRK INSTITUTE</p>
+              </div>
+            </div>
           </div>
-          <div class="video-box" data-aos="zoom-in">
-            <video controls>
-              <source src="videos/0909.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        </div>
-        <button class="slider-button next" onclick="slide(this, 1)">&#10095;</button>
-      </div>
-    </div>
-
-   <!-- Row 3 -->
-    <div class="video-category">
-      <div class="slider-container">
-        <button class="slider-button prev" onclick="slide(this, -1)">&#10094;</button>
-        <div class="video-slider">
-          <div class="video-box" data-aos="zoom-in">
-            <video controls>
-              <source src="videos/1010.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-          </div>
-          <div class="video-box" data-aos="zoom-in">
-            <video controls>
-              <source src="videos/1025 (1)(1).mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-          </div>
-          <div class="video-box" data-aos="zoom-in">
-            <video controls>
-              <source src="videos/1214 (1).mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
+          <div class="instagram-embed" data-aos="zoom-in" data-url="https://www.instagram.com/reel/DEC4dP8NLQU/">
+            <div class="reel-cover" onclick="redirectToInstagram(this.parentElement.getAttribute('data-url'))">
+              <img class="reel-image" src="https://dl.fastvideosave.net/?url=https%3A%2F%2Fscontent-yyz1-1.cdninstagram.com%2Fv%2Ft51.75761-15%2F471667545_17892727836135229_8852342488893230708_n.jpg%3Fstp%3Ddst-jpg_e15_tt6%26_nc_cat%3D101%26ig_cache_key%3DMzUzMTYzMzM1ODM5NzU1MTYzNg%253D%253D.3-ccb1-7%26ccb%3D1-7%26_nc_sid%3D58cdad%26efg%3DeyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjU0MHg5NjAuc2RyIn0%253D%26_nc_ohc%3DelSW2fsVOhMQ7kNvwF0HlBr%26_nc_oc%3DAdn_06Cwl6GhMOlpAxkLC95mt07fd1EzVT6wuuC7g83HIzUUmJoAAqID2eJKLpYirBE%26_nc_ad%3Dz-m%26_nc_cid%3D0%26_nc_zt%3D23%26_nc_ht%3Dscontent-yyz1-1.cdninstagram.com%26_nc_gid%3DR6qaG06NAf1obORPdPCcGQ%26oh%3D00_AfTIESJ340S5rSVdx3tHHCd9gOXc5DhfbifMkLXkYLxV3Q%26oe%3D6879643C" alt="Reel Cover">
+              <div class="reel-overlay">
+                <div class="play-button"></div>
+              </div>
+              <div class="reel-info">
+                <h4>IT VISIT AT AHEMDABAD</h4>
+                <p>SRK INSTITUTE</p>
+              </div>
+            </div>
           </div>
         </div>
         <button class="slider-button next" onclick="slide(this, 1)">&#10095;</button>
@@ -290,6 +377,150 @@
     </div>
   </div>
   
+  <!-- Row 3 -->
+  <div class="container-fluid">
+    <div class="video-category">
+      <div class="slider-container">
+        <button class="slider-button prev" onclick="slide(this, -1)">&#10094;</button>
+        <div class="video-slider">
+          <div class="instagram-embed" data-aos="zoom-in" data-url="https://www.instagram.com/reel/C_silu4vDmvQ0LBM8KuhcPOJYDFYdjZV3YiH5A0/">
+            <div class="reel-cover" onclick="redirectToInstagram(this.parentElement.getAttribute('data-url'))">
+              <img class="reel-image" src="https://dl.fastvideosave.net/?url=https%3A%2F%2Fscontent-sjc3-1.cdninstagram.com%2Fv%2Ft51.71878-15%2F503424629_1226400039069556_4507977989926167080_n.jpg%3Fstp%3Ddst-jpg_e15_tt6%26_nc_cat%3D110%26ig_cache_key%3DMzQ1MzI4NzE0MDgzMjMyODExMTEyMjY0MDAwMjI0MDI4OTE%253D.3-ccb1-7%26ccb%3D1-7%26_nc_sid%3D58cdad%26efg%3DeyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEyMTV4MjE2MC5zZHIifQ%253D%253D%26_nc_ohc%3DxgNnDEvu4FgQ7kNvwGpX6n1%26_nc_oc%3DAdlq5y1wdnOj_op7c43Qq9TckUyOkIyVTt26w4nnuon4TP_04S3d0b9MljQahe9MCnQ%26_nc_ad%3Dz-m%26_nc_cid%3D0%26_nc_zt%3D23%26_nc_ht%3Dscontent-sjc3-1.cdninstagram.com%26_nc_gid%3D9inc5cYRGJSlYx0juDmTJQ%26oh%3D00_AfSvdN9g24hp5DWxqkacINgQzDJpVQ5j2UutodeL19NYsg%26oe%3D687961CF" alt="Reel Cover">
+              <div class="reel-overlay">
+                <div class="play-button"></div>
+              </div>
+              <div class="reel-info">
+                <h4>GANESH CHATURTHI</h4>
+                <p>SRK INSTITUTE</p>
+              </div>
+            </div>
+          </div>
+          <div class="instagram-embed" data-aos="zoom-in" data-url="https://www.instagram.com/reel/DKEJUk2O4EL/">
+            <div class="reel-cover" onclick="redirectToInstagram(this.parentElement.getAttribute('data-url'))">
+              <img class="reel-image" src="https://dl.fastvideosave.net/?url=https%3A%2F%2Fscontent-det1-1.cdninstagram.com%2Fv%2Ft51.71878-15%2F500576773_1398663604890351_6127792828621385672_n.jpg%3Fstp%3Ddst-jpg_e15_tt6%26_nc_cat%3D110%26ig_cache_key%3DMzY0MDA3NTM5NTE5NDkxMzAzNQ%253D%253D.3-ccb1-7%26ccb%3D1-7%26_nc_sid%3D58cdad%26efg%3DeyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjY0MHgxMTM2LnNkciJ9%26_nc_ohc%3Dh_1xomhO-YMQ7kNvwEzxvVS%26_nc_oc%3DAdmJZ8HrPt_W2KFToqMyMAmmbQFgBlmZLxMXjuoFIU65Fc69s40wXjbNdpOhUKkvlEI%26_nc_ad%3Dz-m%26_nc_cid%3D0%26_nc_zt%3D23%26_nc_ht%3Dscontent-det1-1.cdninstagram.com%26_nc_gid%3DnG37xCjqdc7HAIpraJShlA%26oh%3D00_AfQd6xrfqTGKE5nA_m8SHcxlmHr_p2749Cqnhrxj6H4Jeg%26oe%3D68795573" alt="Reel Cover">
+              <div class="reel-overlay">
+                <div class="play-button"></div>
+              </div>
+              <div class="reel-info">
+                <h4>JANMASHTMI 2K24</h4>
+                <p>SRK INSTITUTE</p>
+              </div>
+            </div>
+          </div>
+          <div class="instagram-embed" data-aos="zoom-in" data-url="https://www.instagram.com/reel/DDjnAv4PzhkNd5Qt6kf8t04XGRy8jJHRBXCf_s0/">
+            <div class="reel-cover" onclick="redirectToInstagram(this.parentElement.getAttribute('data-url'))">
+              <img class="reel-image" src="https://dl.fastvideosave.net/?url=https%3A%2F%2Fscontent-iad3-1.cdninstagram.com%2Fv%2Ft51.75761-15%2F470495716_18098013607490909_984757074134585248_n.jpg%3Fstp%3Ddst-jpg_e15_tt6%26_nc_cat%3D104%26ig_cache_key%3DMzUyMjgzMDkwODc1NzMyNTkyNA%253D%253D.3-ccb1-7%26ccb%3D1-7%26_nc_sid%3D58cdad%26efg%3DeyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEyMTV4MjE2MC5zZHIifQ%253D%253D%26_nc_ohc%3DiH_FLAPplMUQ7kNvwFoDZWi%26_nc_oc%3DAdlPgMpKO2YVPgO9qcnq-j1iIamgF-pMk-G3xsWV8Ok5bcDlMCccVf1n3Baco95j4aw%26_nc_ad%3Dz-m%26_nc_cid%3D0%26_nc_zt%3D23%26_nc_ht%3Dscontent-iad3-1.cdninstagram.com%26_nc_gid%3DmAKsWyTzwY3b2tOw_F3B6w%26oh%3D00_AfSZtmW93bfEe-lE8YyPV-ysQAy5vxj0yIeIYMt5OiyfCw%26oe%3D687963F7" alt="Reel Cover">
+              <div class="reel-overlay">
+                <div class="play-button"></div>
+              </div>
+              <div class="reel-info">
+                <h4>BCA SEM 1 MEMORIES</h4>
+                <p>SRK INSTITUTE</p>
+              </div>
+            </div>
+          </div>
+          <div class="instagram-embed" data-aos="zoom-in" data-url="https://www.instagram.com/reel/DBsS9qhvabZOD0y__Sa1uLCPk6Qy9EXCHr29cw0/">
+            <div class="reel-cover" onclick="redirectToInstagram(this.parentElement.getAttribute('data-url'))">
+              <img class="reel-image" src="https://dl.fastvideosave.net/?url=https%3A%2F%2Fscontent-dfw5-1.cdninstagram.com%2Fv%2Ft51.71878-15%2F503257772_725399236595781_5677524669658054706_n.jpg%3Fstp%3Ddst-jpg_e15_tt6%26_nc_cat%3D101%26ig_cache_key%3DMzQ4OTI0NzIxMzY5MzgwNjI5Nw%253D%253D.3-ccb1-7%26ccb%3D1-7%26_nc_sid%3D58cdad%26efg%3DeyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEyMTV4MjE2MC5zZHIifQ%253D%253D%26_nc_ohc%3DWwqK5r2WY0EQ7kNvwGFXUbr%26_nc_oc%3DAdmGBzXTA3txS3KRcnSQ7xCTbbl2JfvO5KurnlmCKM8-wm17UdbNYaHYqjOtr4TQxOE%26_nc_ad%3Dz-m%26_nc_cid%3D0%26_nc_zt%3D23%26_nc_ht%3Dscontent-dfw5-1.cdninstagram.com%26_nc_gid%3DuC_0BCHVhfGqvXLupWNMlQ%26oh%3D00_AfTUFD56Q92eDPQeqT9Njfy062IQBbjfBLE7vKSrQt1qcA%26oe%3D68797F9A" alt="Reel Cover">
+              <div class="reel-overlay">
+                <div class="play-button"></div>
+              </div>
+              <div class="reel-info">
+                <h4>FRESHERS PARTY 2K24</h4>
+                <p>SRK INSTITUTE</p>
+              </div>
+            </div>
+          </div>
+          <div class="instagram-embed" data-aos="zoom-in" data-url="https://www.instagram.com/reel/DBikjuuP29X/">
+            <div class="reel-cover" onclick="redirectToInstagram(this.parentElement.getAttribute('data-url'))">
+              <img class="reel-image" src="https://dl.fastvideosave.net/?url=https%3A%2F%2Fscontent-lax3-2.cdninstagram.com%2Fv%2Ft51.71878-15%2F503482591_722369590252027_6113609829538227143_n.jpg%3Fstp%3Ddst-jpg_e15_tt6%26_nc_cat%3D103%26ig_cache_key%3DMzQ4NjUwOTg0NjU2MjMwMzgzMQ%253D%253D.3-ccb1-7%26ccb%3D1-7%26_nc_sid%3D58cdad%26efg%3DeyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEwODB4MTkyMC5zZHIifQ%253D%253D%26_nc_ohc%3DX9jErkQ9tdYQ7kNvwGzDiL7%26_nc_oc%3DAdm1GwiUYc87kCXJhmaOQmKc6rNb4WTzFNQZtb87eCunxQGwTStxY0d6XtiKkQglv7Y%26_nc_ad%3Dz-m%26_nc_cid%3D0%26_nc_zt%3D23%26_nc_ht%3Dscontent-lax3-2.cdninstagram.com%26_nc_gid%3DqYBxgjNk7CgfF3FibuexXg%26oh%3D00_AfQ7azA4HoZDDONhbEVLeJ_N2-hUMfWxz_NFa61OSCzguw%26oe%3D687961EA" alt="Reel Cover">
+              <div class="reel-overlay">
+                <div class="play-button"></div>
+              </div>
+              <div class="reel-info">
+                <h4>FRESHERS PARTY 2K24</h4>
+                <p>SRK INSTITUTE</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="slider-button next" onclick="slide(this, 1)">&#10095;</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Row 4 -->
+  <div class="container-fluid">
+    <div class="video-category">
+      <div class="slider-container">
+        <button class="slider-button prev" onclick="slide(this, -1)">&#10094;</button>
+        <div class="video-slider">
+          <div class="instagram-embed" data-aos="zoom-in" data-url="https://www.instagram.com/reel/DJ9VSQEBl7w/">
+            <div class="reel-cover" onclick="redirectToInstagram(this.parentElement.getAttribute('data-url'))">
+              <img class="reel-image" src="https://dl.fastvideosave.net/?url=https%3A%2F%2Fscontent-lax3-2.cdninstagram.com%2Fv%2Ft51.71878-15%2F499700508_725041826615370_424995512574975278_n.jpg%3Fstp%3Ddst-jpg_e15_tt6%26_nc_cat%3D101%26ig_cache_key%3DMzYzODE1NzY4NzE1OTkzODgwMA%253D%253D.3-ccb1-7%26ccb%3D1-7%26_nc_sid%3D58cdad%26efg%3DeyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjY0MHgxMTM2LnNkciJ9%26_nc_ohc%3D0Mc5joEp6UsQ7kNvwHVGiIl%26_nc_oc%3DAdlh2GlpaXOX80p6sbvG_bPrmkZ6qQW6tRQTsAsBK0Y096huNbpMifwzKc7a5gB__LU%26_nc_ad%3Dz-m%26_nc_cid%3D0%26_nc_zt%3D23%26_nc_ht%3Dscontent-lax3-2.cdninstagram.com%26_nc_gid%3DvYmjnlnkjdpIu1aHTsiFOA%26oh%3D00_AfRxvoLjGAllZbkx6KpodXvUdwT8DuuDe4T_IUC_1dtroQ%26oe%3D68796EDA" alt="Reel Cover">
+              <div class="reel-overlay">
+                <div class="play-button"></div>
+              </div>
+              <div class="reel-info">
+                <h4>DAY CELEBRATIONS</h4>
+                <p>SRK INSTITUTE</p>
+              </div>
+            </div>
+          </div>
+          <div class="instagram-embed" data-aos="zoom-in" data-url="https://www.instagram.com/reel/C29_35LIFf2/">
+            <div class="reel-cover" onclick="redirectToInstagram(this.parentElement.getAttribute('data-url'))">
+              <img class="reel-image" src="https://dl.fastvideosave.net/?url=https%3A%2F%2Fscontent-iad3-1.cdninstagram.com%2Fv%2Ft51.71878-15%2F498155993_1780447879491000_8212362314940781849_n.jpg%3Fstp%3Ddst-jpg_e15_tt6%26_nc_cat%3D109%26ig_cache_key%3DMzI5NjA3MTQyMDE5NjQ0NDE1MA%253D%253D.3-ccb1-7%26ccb%3D1-7%26_nc_sid%3D58cdad%26efg%3DeyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjU0MHg5NjAuc2RyIn0%253D%26_nc_ohc%3DrrkZlw1-mDEQ7kNvwFSA5wu%26_nc_oc%3DAdkofp_3YwZOfcmFWWQB43NeyQCwVWHJkTx8b9JhUKTl1EBuGkCqmuvyGsO5brCd1xg%26_nc_ad%3Dz-m%26_nc_cid%3D0%26_nc_zt%3D23%26_nc_ht%3Dscontent-iad3-1.cdninstagram.com%26_nc_gid%3D4ezRelKXfFRDAX14Qh1vRw%26oh%3D00_AfQ1pLrkLYk8HWKNSWChHRvAZNlkTKsSSDHqw5qtUSYR8g%26oe%3D68797CC1" alt="Reel Cover">
+              <div class="reel-overlay">
+                <div class="play-button"></div>
+              </div>
+              <div class="reel-info">
+                <h4>MISMATCHED DAY </h4>
+                <p>SRK INSTITUTE</p>
+              </div>
+            </div>
+          </div>
+          <div class="instagram-embed" data-aos="zoom-in" data-url="https://www.instagram.com/reel/C2wxQPzIiH1/">
+            <div class="reel-cover" onclick="redirectToInstagram(this.parentElement.getAttribute('data-url'))">
+              <img class="reel-image" src="https://dl.fastvideosave.net/?url=https%3A%2F%2Fscontent-dfw5-2.cdninstagram.com%2Fv%2Ft51.71878-15%2F498246072_1036604921293972_7398817054287222813_n.jpg%3Fstp%3Ddst-jpg_e15_tt6%26_nc_cat%3D106%26ig_cache_key%3DMzI5MjM0Nzk0ODM2MjUwNjc0MQ%253D%253D.3-ccb1-7%26ccb%3D1-7%26_nc_sid%3D58cdad%26efg%3DeyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjU0MHg5NjAuc2RyIn0%253D%26_nc_ohc%3Do7LhQGTnmzUQ7kNvwF9cEL-%26_nc_oc%3DAdm68e0pY7Z5hNeMZXtDiqywFwz9RT3DTZqqZfjlLvSOdVXo2x1yEg8ZDuccs8N9nkc%26_nc_ad%3Dz-m%26_nc_cid%3D0%26_nc_zt%3D23%26_nc_ht%3Dscontent-dfw5-2.cdninstagram.com%26_nc_gid%3DyCubDTDLM4Zr9RtPRcqBSw%26oh%3D00_AfT9HLAsG__xQJlyUl_hrOQrq5Qf7eY5FKKtt2F8_G3VFg%26oe%3D68796C40" alt="Reel Cover">
+              <div class="reel-overlay">
+                <div class="play-button"></div>
+              </div>
+              <div class="reel-info">
+                <h4>TRADITIONAL DAY</h4>
+                <p>SRK INSTITUTE</p>
+              </div>
+            </div>
+          </div>
+          <div class="instagram-embed" data-aos="zoom-in" data-url="https://www.instagram.com/reel/C2zrCNtoc2Z/">
+            <div class="reel-cover" onclick="redirectToInstagram(this.parentElement.getAttribute('data-url'))">
+              <img class="reel-image" src="https://dl.fastvideosave.net/?url=https%3A%2F%2Fscontent-sjc3-1.cdninstagram.com%2Fv%2Ft51.71878-15%2F496869447_661586373359990_3503536352116528436_n.jpg%3Fstp%3Ddst-jpg_e15_tt6%26_nc_cat%3D111%26ig_cache_key%3DMzI5MzE2NTAyMDcwMTExNzg0OQ%253D%253D.3-ccb1-7%26ccb%3D1-7%26_nc_sid%3D58cdad%26efg%3DeyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjMyMHg1NzYuc2RyIn0%253D%26_nc_ohc%3D8DBrotz_a8YQ7kNvwHGlemi%26_nc_oc%3DAdml570WvgNp8OanTZwuqloecW6y4UctR1pdP-y77QduALm3K3-Kgz3LPcQcbrYkW-U%26_nc_ad%3Dz-m%26_nc_cid%3D0%26_nc_zt%3D23%26_nc_ht%3Dscontent-sjc3-1.cdninstagram.com%26_nc_gid%3Dw7czRwRr2YJ1gAE_SDaZyA%26oh%3D00_AfSiL7sdMuabnshJCApzMmkNcEksLPZKAWCR8v3V0EabyA%26oe%3D687963A0" alt="Reel Cover">
+              <div class="reel-overlay">
+                <div class="play-button"></div>
+              </div>
+              <div class="reel-info">
+                <h4>CHARACTER DAY</h4>
+                <p>SRK INSTITUTE</p>
+              </div>
+            </div>
+          </div>
+          <div class="instagram-embed" data-aos="zoom-in" data-url="https://www.instagram.com/reel/C22Q_LexEXo/">
+            <div class="reel-cover" onclick="redirectToInstagram(this.parentElement.getAttribute('data-url'))">
+              <img class="reel-image" src="https://dl.fastvideosave.net/?url=https%3A%2F%2Fscontent-iad3-2.cdninstagram.com%2Fv%2Ft51.71878-15%2F499811992_1779589172958127_5978806662397572286_n.jpg%3Fstp%3Ddst-jpg_e15_tt6%26_nc_cat%3D103%26ig_cache_key%3DMzI5Mzg5NDg4Nzg2NjY0ODA0MA%253D%253D.3-ccb1-7%26ccb%3D1-7%26_nc_sid%3D58cdad%26efg%3DeyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjU0MHg5NjAuc2RyIn0%253D%26_nc_ohc%3DJmsrFz-6D4IQ7kNvwHHIjav%26_nc_oc%3DAdm3HWWe20b97TEWvgFhWxwJ6EUnud2unwEXZL7kutrEGh-EWj8TIHNLPTBJ5AQnFHw%26_nc_ad%3Dz-m%26_nc_cid%3D0%26_nc_zt%3D23%26_nc_ht%3Dscontent-iad3-2.cdninstagram.com%26_nc_gid%3DQmvBX3JLRfFZizQz_qwYeA%26oh%3D00_AfTsz5Pjvo4djJleaCdmGvb4r0cyUnk-tyWmRnvMw8os8w%26oe%3D687967BC" alt="Reel Cover">
+              <div class="reel-overlay">
+                <div class="play-button"></div>
+              </div>
+              <div class="reel-info">
+                <h4>SIGNATURE DAY</h4>
+                <p>SRK INSTITUTE</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="slider-button next" onclick="slide(this, 1)">&#10095;</button>
+      </div>
+    </div>
+  </div>
+
   <footer>
     <div class="container">
       <p>&copy; 2025 SRK Institute of Management & Computer Application, Sapeda</p>
@@ -301,23 +532,46 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
     AOS.init({ duration: 1000 });
-
+    
     function slide(button, direction) {
       const container = button.closest('.slider-container');
       const slider = container.querySelector('.video-slider');
-      const cardWidth = slider.querySelector('.video-box').offsetWidth + 25;
+      const cardWidth = slider.querySelector('.instagram-embed').offsetWidth + 25;
       slider.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
     }
-
-    // Pause other videos when one is played
-    document.addEventListener('play', function(e) {
-      const videos = document.getElementsByTagName('video');
-      for(let i = 0; i < videos.length; i++) {
-        if(videos[i] != e.target) {
-          videos[i].pause();
-        }
-      }
-    }, true);
+    
+    function redirectToInstagram(url) {
+      window.open(url, '_blank');
+    }
+    
+    // You can add this function to fetch actual reel covers from Instagram if needed
+    // Note: Instagram's API requires authentication for this
+    async function fetchReelCovers() {
+      const embeds = document.querySelectorAll('.instagram-embed');
+      
+      // In a real implementation, you would need to:
+      // 1. Have a server-side component to fetch Instagram data
+      // 2. Make authenticated requests to Instagram's API
+      // 3. Update the image URLs and titles dynamically
+      
+      // This is just a placeholder to show the concept
+      embeds.forEach(embed => {
+        const url = embed.getAttribute('data-url');
+        const reelId = extractReelId(url);
+        // In a real app, you would fetch the cover image for this reelId
+      });
+    }
+    
+    function extractReelId(url) {
+      // Extract the reel ID from the URL
+      const matches = url.match(/\/reel\/([^\/]+)/);
+      return matches ? matches[1] : null;
+    }
+    
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', function() {
+      // You could call fetchReelCovers() here if you implement it
+    });
   </script>
 </body>
 </html>
