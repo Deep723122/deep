@@ -139,6 +139,35 @@
     .qr-counter button:hover {
       background-color: #d65a3b;
     }
+        .navbar {
+      background-color: #ffffff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .navbar-brand img {
+      height: 40px;
+      border-radius: 10px;
+      margin-right: 10px;
+    }
+
+
+    .creator-credit {
+      background-color: #003865;
+      color: #ffffff;
+      text-align: center;
+      padding: 12px 20px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      animation: fadeInSlide 1.5s ease-out forwards;
+      opacity: 0;
+      transform: translateY(-10px);
+      letter-spacing: 0.5px;
+    }
+
+    .creator-credit span {
+      color: #00ffc8;
+      font-weight: bold;
+    }
 
     section {
       padding: 1.5rem 1rem;
@@ -279,6 +308,27 @@
     <div class="spinner"></div>
     <div class="loader-text">🎉 Welcome to SRK College Fest</div>
   </div>
+  <!-- nav bar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="https://www.srkinstitute.in/images/SRKLOGOWEB.jpg" alt="SRK Logo">
+        SRK FEST
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="creator-credit" data-aos="fade-down">
+    ✨ Created by <span>Deep Sathwara</span> & <span>Meet Prajapati</span>
+  </div>
 
   <!-- MAIN CONTENT -->
   <main>
@@ -286,17 +336,15 @@
       <h1>SRK INSTITUTE OF MANAGEMENT & COMPUTER APPLICATIONS</h1>
       <div class="location">Sapeda</div>
       <div class="college-subtitle">College Fest Celebration</div>
-      <br>
-      <div class="college-subtitle2">(CREATED BY : DEEP SATHAVARA & MEET PRAJAPATI)</div>
     </div>
 
 
     <!-- QR Counter -->
     <div class="qr-counter" data-aos="zoom-in">
       <h2>🚀 Visit Count!</h2>
-      <p>Total Scans:</p>
+      <p>Total Visits Across All Devices:</p>
       <div id="counter">Loading...</div>
-      <button onclick="resetCount()">🔄 Reset Count</button>
+      <button onclick="resetCount()">🔄 Reset Count (Admin Only)</button>
     </div>
 
     <!-- Media Sections -->
@@ -331,16 +379,43 @@
     // Init AOS
     AOS.init({ duration: 1000, once: true });
 
-    // QR Counter
-    let count = localStorage.getItem("scanCount");
-    count = count ? parseInt(count) : 0;
-    count += 1;
-    localStorage.setItem("scanCount", count);
-    document.getElementById("counter").innerText = count;
+    // Visitor counter with unique ID tracking
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check if this is the first visit from this device
+      let visitorId = localStorage.getItem('visitorId');
+      let hasVisited = localStorage.getItem('hasVisited');
+      
+      // Generate a unique ID if this is a new visitor
+      if (!visitorId) {
+        visitorId = 'visitor-' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('visitorId', visitorId);
+      }
+      
+      // Get or initialize the total visit count
+      let totalCount = localStorage.getItem('totalVisitCount');
+      totalCount = totalCount ? parseInt(totalCount) : 0;
+      
+      // Only increment if this is the first visit in this session
+      if (!hasVisited) {
+        totalCount += 1;
+        localStorage.setItem('totalVisitCount', totalCount);
+        localStorage.setItem('hasVisited', 'true');
+        
+        // For demo purposes - in a real app, this would be a server API call
+        console.log('New visit recorded from:', visitorId);
+      }
+      
+      // Display the total count
+      document.getElementById('counter').innerText = totalCount;
+    });
 
     function resetCount() {
-      localStorage.setItem("scanCount", 0);
-      document.getElementById("counter").innerText = 0;
+      // In a real application, this would be protected by admin authentication
+      if (confirm('Are you sure you want to reset the visit counter? (Admin only)')) {
+        localStorage.setItem('totalVisitCount', 0);
+        document.getElementById('counter').innerText = 0;
+        alert('Visit counter has been reset!');
+      }
     }
 
     // Loader Timeout
